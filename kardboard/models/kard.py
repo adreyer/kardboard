@@ -158,6 +158,10 @@ class Kard(app.db.Document):
     created_at = app.db.DateTimeField(required=True)
 
     _service_class = app.db.StringField(required=True, db_field="service_class")
+    category = app.db.StringField(required=False)
+    subproject = app.db.StringField(required=False)
+    project = app.db.StringField(required=False)
+
     _assignee = app.db.StringField(db_field="assignee")
     _version = app.db.StringField(required=False, db_field="version")
 
@@ -169,7 +173,7 @@ class Kard(app.db.Document):
         'collection': 'kard',
         'ordering': ['+priority', '-backlog_date'],
         'auto_create_index': True,
-        'indexes': [('state', 'team'), ('team', 'done_date'), '_service_class', '_cycle_time', '_lead_time'],
+        'indexes': [('state', 'team'), ('team', 'done_date'), '_service_class', '_cycle_time', '_lead_time', 'project', 'category', 'subproject'],
     }
 
     EXPORT_FIELDNAMES = (
